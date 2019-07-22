@@ -1,4 +1,5 @@
-#tek kullanımlık yazılmış (bu kötü bir şey) kod. Kötü örnek olarak atıyorum.
+#tek kullanımlık yazılmış (bu kötü bir şey) kod. Kötü örnek olarak atıyorum. 
+#kötü kod örneği
 
 import os
 import sys
@@ -9,6 +10,7 @@ from PIL import Image
 source = "/home/incognito/Downloads/YOLO-Annotation-Tool/Images/001/"
 image_names = os.listdir(source)
 
+#burada os modülü kullanılarak daha dinamik pathler yazılabilirdi. O zaman bunu bilmiyormuşum vay be.
 def renameImages():
     flag = 0
 
