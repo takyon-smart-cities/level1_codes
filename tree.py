@@ -29,4 +29,3 @@ def preorder(root):
         preorder(root.left)
         preorder(root.right)
 
-
