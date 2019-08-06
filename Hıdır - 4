@@ -1,0 +1,20 @@
+#Find the largest palindrome made from the product of two 3-digit numbers.
+
+liste = []
+for a in range(100,1000):
+    for b in range(100,1000) :
+        product = a*b
+        product =str(product)
+        if len(product)%2==0 :
+            key1 = ""
+            key2 = ""
+            for i in product[0:3]:
+                key1+=i
+            for k in product[3:6] :
+                key2+=k
+            if key1 == key2[::-1] :
+                liste.append(int(product))
+
+liste.sort(reverse =True)
+print(liste[0])
+
