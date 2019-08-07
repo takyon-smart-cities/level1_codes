@@ -16,17 +16,14 @@ def dynamicArray(n, queries):
     
     for query in queries:
         qtype    = query[0]
-        seqIndex = (query[1] ^ lastAnswer) % n
-        seq      = seqList[seqIndex]
+        seq      = seqList[ (query[1] ^ lastAnswer) % n]
         y        = query[2]
 
-
-
         if qtype == 1 :
-            seqList[seqIndex].append(y)
+            #seqList[seqIndex].append(y) --> ilk böyle yazmıştım fakat
+            seq.append(y) # böyle de çalışıyormuş
         else :
             lastAnswer = seq[y % len(seq)]
-
             print(lastAnswer)
 
 
