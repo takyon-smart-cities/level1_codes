@@ -1,0 +1,15 @@
+#hackerrank dot and cross challenge w/ solution
+#you are given two arrays A and B. both have dimensions of NxN. 
+#your task is to compute their matrix product.
+#key concepts: numpy, list comprehensions & generators (map)
+
+import numpy
+n = int(input())
+A = numpy.array([list(map(int, input().split())) for i in range(n)])
+B = numpy.array([list(map(int, input().split())) for i in range(n)])
+
+#transposing the array first is more convenient for me to calculate the matrix product. see documentation for numpy.ndarray.transpose()
+B = numpy.transpose(B)
+
+print(numpy.array([[numpy.dot(A[i],B[j]) for j in range(n)] for i in range(n)]))
+        
