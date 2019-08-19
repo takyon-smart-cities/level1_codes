@@ -1,0 +1,22 @@
+#hackerrank string formatting challenge w/solution
+#given an integer, n, print the following values for each integer  from  to: decimal, octal, hexadecimal (capitalized), binary
+#the four values must be printed on a single line in the order specified above for each i from 1 to n. each value should be space-padded to match 
+#the width of the binary value of n.
+#key concepts: usage of format() to ease type conversation
+
+#solution of the problem requires you to complete particular function print_formatted(number)
+def print_formatted(number):
+
+#find width of the binary value to space-pad
+    padded = str(len(format(number,"b")))
+    
+    #o: octal, X: hexadecimal with uppercase, b: binary (considering binary numbers, please check built-in function bin())
+    format_string = "{0:>"+padded+"} {1:>"+padded+"o} {2:>"+padded+"X} {3:>"+padded+"b}"
+    
+    for i in range(1,number+1):
+        print(format_string.format(i,i,i,i))
+
+#this part is given by hackerrank at the beginning and cannot be modified.
+if __name__ == '__main__':
+    n = int(input())
+    print_formatted(n)
