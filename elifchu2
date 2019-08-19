@@ -1,7 +1,7 @@
 #hackerrank string formatting challenge w/solution
 #given an integer, n, print the following values for each integer  from  to: decimal, octal, hexadecimal (capitalized), binary
-#the four values must be printed on a single line in the order specified above for each i from 1 to n. each value should be space-padded to match 
-#the width of the binary value of n.
+#the four values must be printed on a single line in the order specified above for each i from 1 to n.
+#each value should be space-padded to match the width of the binary value of n.
 #key concepts: usage of format() to ease type conversation
 
 #solution of the problem requires you to complete particular function print_formatted(number)
