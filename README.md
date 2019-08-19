@@ -4,4 +4,4 @@ hıdır kodların güzelmişş, öbür kodlar nerede :D
 
 Başlık şablonuna uyalım lütfen arkadaşlar.
 
-İsim + kaçıncı iterasyonsa + subject
+Başlık şablonu İsim + kaçıncı iterasyonsa + subject
