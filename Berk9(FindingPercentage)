@@ -1,0 +1,9 @@
+#https://www.hackerrank.com/challenges/finding-the-percentage/problem
+if __name__ == '__main__':
+    y = {}
+    for _ in range(0,int(input())):
+        name, *line = input().split()
+        scores = list(map(float, line))
+        y[name] = scores
+    x = input()
+    print("%.2f" %((float(y[x][0])+float(y[x][1])+float(y[x][2]))/3))
