@@ -1,0 +1,9 @@
+#https://www.hackerrank.com/challenges/nested-list/problem
+#this code is to find those who have second smallest exam result in exam papers
+
+if __name__ == '__main__':
+    liste=[]    
+    for _ in range(0,int(input())):
+        liste.append([input(),float(input())])
+    İki = sorted(list(set((score for name,score in liste))))[1]
+    print("\n".join([a for a,b in sorted(liste) if b == İki]))
