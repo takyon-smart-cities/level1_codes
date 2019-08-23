@@ -1,0 +1,89 @@
+import random
+from time import sleep
+def devam():
+    global P
+    G=input("DEVAM ETMEK ISTIYORMUSUNUZ E\H: ")
+    G=G.upper()
+    if G=="H":
+        quit()
+    if G=="E":
+        P=P-10
+        pass
+    else:
+        print("YALNIZCA E\H GIREBILIRSINIZ")
+        devam()
+       
+Alan=[["##################"],
+      ["#                #"],
+      ["    ___","___","___    "],
+      ["#                #"],
+      ["#      SLOT      #"],
+      ["#     MACHINE    #"],
+      ["##################"]]
+
+P=240
+Renkler=[1,2,3,4,5,6,7]
+
+print("\n"*40)
+for i in Alan:
+    print("\t".expandtabs(30), *i)
+print("\n"*15)
+print("PARANIZ: ", P)
+devam()
+while True:
+    r1=random.choice(Renkler)
+    r2=random.choice(Renkler)
+    r3=random.choice(Renkler)
+    if r1==r2==r3==7:
+        P+=100
+    elif r1==r2==7 or r1==r3==7 or r2==r3==7:
+        P+=50
+    elif r1==7 or r2==7 or r3==7:
+        P+=25
+    elif r1==r2==r3:
+        P+=20
+
+
+    for i in range(5):
+        Alan=[["##################"],
+      ["#                #"],
+      ["    *  "," * ","  *    "],
+      ["#                #"],
+      ["#      SLOT      #"],
+      ["#     MACHINE    #"],
+      ["##################"]]
+        print("\n"*40)
+        for a in Alan:
+            print("\t".expandtabs(30), *a)
+        print("\n"*15)
+        sleep(0.1)
+        Alan=[["##################"],
+      ["#                #"],
+      ["       ","   ","       "],
+      ["#                #"],
+      ["#      SLOT      #"],
+      ["#     MACHINE    #"],
+      ["##################"]]
+        print("\n"*40)
+        for a in Alan:
+            print("\t".expandtabs(30), *a)
+        print("\n"*15)
+        sleep(0.1)
+        print("\n"*40)
+
+    X=str(r1).center(3)
+    Y=str(r2).center(3)
+    Z=str(r3).center(3)
+    Alan=[["##################"],
+     ["#                #"],
+     ["  "+X+"   "+Y+"   "+Z],
+     ["#                #"],
+     ["#      SLOT      #"],
+     ["#     MACHINE    #"],
+     ["##################"]]
+
+    for i in Alan:
+        print("\t".expandtabs(30), *i)
+    print("\n"*15)
+    print("PARANIZ: ", P)
+    devam()
