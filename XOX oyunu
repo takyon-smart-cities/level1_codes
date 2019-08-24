@@ -1,0 +1,84 @@
+        
+        
+class XOX():
+    def __init__(self,tahta = [[" "," "," "],[" "," "," "],[" "," "," "]]):
+        self.tahta=tahta
+        self.oyunDurum=True
+
+
+    def tahtaGoster(self):
+        for i in self.tahta:
+            print(i)
+    def p1Secim(self):
+        satir = int(input("P1: Satir giriniz: "))
+        sutun = int(input("P1: Sutun giriniz: "))
+        if self.kontrol(satir,sutun):
+            self.tahta[satir-1][sutun-1]="X"
+        else:
+            print("Girdiğiniz bolge dolu")
+            self.p1Secim()
+    def p2Secim(self):
+        satir=int(input("P2: Satir giriniz: "))
+        sutun=int(input("P2: Sutun giriniz: "))
+        if self.kontrol(satir,sutun):
+            self.tahta[satir-1][sutun-1]="O"
+
+        else:
+            print("Girdiğniz bölge dolu")
+            self.p2Secim()
+    def kontrol(self,satir,sutun):
+        if(self.tahta[satir-1][sutun-1] != " "):
+            return False
+        else:
+            return  True
+    def durum(self):
+        if(self.tahta[0][0]=="X" and self.tahta[0][1]=="X" and self.tahta[0][2]== "X"):
+            return True
+        if(self.tahta[1][0]=="X" and self.tahta[1][1]=="X" and self.tahta[1][2]== "X"):
+            return True
+        if(self.tahta[2][0]=="X" and self.tahta[2][1]=="X" and self.tahta[2][2]== "X"):
+            return True
+        if(self.tahta[0][0]=="X" and self.tahta[1][0]=="X" and self.tahta[2][0]== "X"):
+            return True
+        if(self.tahta[0][1]=="X" and self.tahta[1][1]=="X" and self.tahta[2][1]== "X"):
+            return True
+        if(self.tahta[0][2]=="X" and self.tahta[1][2]=="X" and self.tahta[2][2]== "X"):
+            return True
+        if(self.tahta[0][0]=="X" and self.tahta[1][1]=="X" and self.tahta[2][2]== "X"):
+            return True
+        if(self.tahta[0][2]=="O" and self.tahta[1][1]=="O" and self.tahta[2][0]== "O"):
+            return True
+        if(self.tahta[0][0]=="O" and self.tahta[0][1]=="O" and self.tahta[0][2]== "O"):
+            return True
+        if(self.tahta[1][0]=="O" and self.tahta[1][1]=="O" and self.tahta[1][2]== "O"):
+            return True
+        if(self.tahta[2][0]=="O" and self.tahta[2][1]=="O" and self.tahta[2][2]== "O"):
+            return True
+        if(self.tahta[0][0]=="O" and self.tahta[1][0]=="O" and self.tahta[2][0]== "O"):
+            return True
+        if(self.tahta[0][1]=="O" and self.tahta[1][1]=="O" and self.tahta[2][1]== "O"):
+            return True
+        if(self.tahta[0][2]=="O" and self.tahta[1][2]=="O" and self.tahta[2][2]== "O"):
+            return True
+        if(self.tahta[0][0]=="O" and self.tahta[1][1]=="O" and self.tahta[2][2]== "O"):
+            return True
+        if(self.tahta[0][2]=="O" and self.tahta[1][1]=="O" and self.tahta[2][0]== "O"):
+            return True
+
+
+        
+                       
+xox=XOX()
+
+while xox.oyunDurum:
+    xox.tahtaGoster()
+    xox.p1Secim()
+    xox.tahtaGoster()
+    if xox.durum():
+        print("p1 kazandı")
+        break
+    xox.p2Secim()
+    if xox.durum():
+        print("p2 kazandı")
+        xox.tahtaGoster()
+        break
