@@ -1,0 +1,63 @@
+#FightGame
+
+
+import random
+class enemy :
+    def __init__(self,cha_name="None",max_health="None",ad="None",ap="None",ad_def="None",ap_def="None"):
+        self.cha_name = cha_name
+        self.max_health = max_health
+        self.ad = ad
+        self.ap = ap
+        self.ad_def = ad_def
+        self.ap_def = ap_def
+    def print(self):
+        print("Character Name:",self.cha_name,"\n","Maximum Health:",self.max_health,"\n","Ad:",self.ad,"\n","Ap:",self.ap,"\n","Def for ad:",self.ad_def,"\n","Def for ap:",self.ap_def)
+
+    def attacked(self,given_ad_damage,given_ap_damage):
+        print(self.cha_name,"is under attack!")
+        self.max_health -= 5*(given_ad_damage-self.ad_def) + 5*(given_ap_damage-self.ap_def)
+        if self.max_health> int(0) :
+            print(self.cha_name,"you are still alive,not to leave the fight!")
+        else :
+            print("Slained!")
+    def attack(self):
+        print(self.cha_name,"is attacking an enemy")
+        given_ad_damage = random.randrange(min_ad,max_ad)
+        given_ap_damage = random.randrange(min_ap,max_ap)
+        print(self.cha_name,"attacked an enemy")
+        self.ad -= given_ad_damage
+        self.ap -= given_ap_damage
+        return(given_ad_damage,given_ap_damage)
+
+    def numbers(self):
+
+      print("Hero:",self.cha_name,"\n","Heatlh Left:",self.max_health,"\n","Ad Def Left:",self.ad_def,"\n","Ap Def Left:.",self.ap_def)
+
+player = []
+i = 0
+while(i<3) :
+    name= input("Select your champion:")
+    health  = random.randrange(500,850)
+    max_ad = random.randrange(75,150)
+    min_ad = random.randrange(0,75)
+    max_ap = random.randrange(60,180)
+    min_ap = random.randrange(0,60)
+    addef = random.randrange(10,45)
+    apdef = random.randrange(5,30)
+    enemyy = enemy(name,health,(max_ad+min_ad),(max_ap+min_ap),addef,apdef)
+    player.append(enemyy)
+    i += 1
+
+i = 0
+while(i<3) :
+    randomenemy1 = random.randrange(0,3)
+    randomenemy2 = random.randrange(0,3)
+    if randomenemy1 == randomenemy2 :
+        randomenemy1 = random.randrange(0,3)
+        randomenemy2 = random.randrange(0,3)
+    else:
+        return_number = player[randomenemy1].attack()
+        player[randomenemy2].attacked(return_number[0],return_number[1])
+        player[randomenemy2].numbers()
+        print("Round End!")
+        i += 1
