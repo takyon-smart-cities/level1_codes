@@ -1,7 +1,8 @@
 #FightGame
 
-
 import random
+import time
+
 class enemy :
     def __init__(self,cha_name="None",max_health="None",ad="None",ap="None",ad_def="None",ap_def="None"):
         self.cha_name = cha_name
@@ -14,16 +15,19 @@ class enemy :
         print("Character Name:",self.cha_name,"\n","Maximum Health:",self.max_health,"\n","Ad:",self.ad,"\n","Ap:",self.ap,"\n","Def for ad:",self.ad_def,"\n","Def for ap:",self.ap_def)
 
     def attacked(self,given_ad_damage,given_ap_damage):
+        time.sleep(2)
         print(self.cha_name,"is under attack!")
         self.max_health -= 5*(given_ad_damage-self.ad_def) + 5*(given_ap_damage-self.ap_def)
+        time.sleep(2)
         if self.max_health> int(0) :
             print(self.cha_name,"you are still alive,not to leave the fight!")
         else :
-            print("Slained!")
+            print("Slained")
     def attack(self):
         print(self.cha_name,"is attacking an enemy")
         given_ad_damage = random.randrange(min_ad,max_ad)
         given_ap_damage = random.randrange(min_ap,max_ap)
+        time.sleep(2)
         print(self.cha_name,"attacked an enemy")
         self.ad -= given_ad_damage
         self.ap -= given_ap_damage
@@ -37,6 +41,7 @@ player = []
 i = 0
 while(i<3) :
     name= input("Select your champion:")
+    time.sleep(1.5)
     health  = random.randrange(500,850)
     max_ad = random.randrange(75,150)
     min_ad = random.randrange(0,75)
@@ -57,7 +62,10 @@ while(i<3) :
         randomenemy2 = random.randrange(0,3)
     else:
         return_number = player[randomenemy1].attack()
+        time.sleep(2)
         player[randomenemy2].attacked(return_number[0],return_number[1])
+        time.sleep(2)
         player[randomenemy2].numbers()
+        time.sleep(2)
         print("Round End!")
         i += 1
