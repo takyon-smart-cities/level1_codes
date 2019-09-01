@@ -1,0 +1,7 @@
+import math
+n =input("")
+ar = []
+for i in range(n):
+    ar = int(input(""))
+    print(len(max(ar)))
+    
