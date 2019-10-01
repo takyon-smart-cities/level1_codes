@@ -1,0 +1,33 @@
+#https://www.hackerrank.com/challenges/itertools-product/problem
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+from itertools import product
+
+A = list(map(int, input().split()))
+B = list(map(int, input().split()))
+
+print(*product(A, B))
+
+
+
+######OR#######
+
+
+
+
+
+
+
+
+
+def product(A,B) :
+    for a in A :
+        for b in B :
+            print((int(a),int(b)),end = " ")
+
+
+
+if __name__ == "__main__" :
+    A = input().split()
+    B = input().split()
+    product(A,B)
