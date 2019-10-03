@@ -1,0 +1,5 @@
+#https://www.hackerrank.com/challenges/itertools-product/problem
+from itertools import permutations
+string, number = input().split()
+for i in (sorted(list(permutations(string,int(number))))) :
+    print("".join(i))
