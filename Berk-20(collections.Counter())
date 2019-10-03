@@ -1,0 +1,14 @@
+#https://www.hackerrank.com/challenges/itertools-product/problem
+def raghu_counter() :
+    from collections import Counter
+    number_of_shoes = int(input())
+    sizes = list(map(int ,input().split()))
+    number_of_customers = int(input())
+    for i in range(number_of_customers) :
+        [size, cost] = map(int, input().split())
+        if (list(Counter(sizes).elements())).count(size) > 0 :
+            sizes.remove(size)
+            sum(cost)
+    return sum(cost)
+
+raghu_counter()
