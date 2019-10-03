@@ -1,0 +1,8 @@
+#https://www.hackerrank.com/challenges/polar-coordinates/problem
+
+import cmath
+complex_number = complex(input())
+x = complex_number.real 
+y = complex_number.imag
+print(abs(complex(x,y)))
+print(cmath.phase(complex(x,y)))
