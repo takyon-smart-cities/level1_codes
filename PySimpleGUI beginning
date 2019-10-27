@@ -1,0 +1,18 @@
+import PySimpleGUI as sg
+
+# layout
+layout = [ [sg.Text('What is your name?')],
+           [sg.InputText()],
+           [sg.Text("Do you like ice cream :")],
+           [sg.Checkbox('Yes'),sg.Checkbox("No")],
+           [sg.Text("What is your ice cream flavor ? ")],
+           [sg.Radio("Vanilla","ice cream"),sg.Radio("Chocolate","ice cream"),sg.Radio("Strawberry","ice cream")],
+           [sg.Text("How much do you like it")],
+           [sg.Slider((0,100),orientation = 'h' , size = (15,20))],
+           [sg.OK(),sg.Cancel()]
+ ]
+#windowpart
+window = sg.Window("Quiz on what you like").Layout(layout)
+#readthewindow
+button,values = window.Read()
+sg.Popup(button,values)
