@@ -1,0 +1,89 @@
+'''
+import PySimpleGUI as sg
+
+#Before run it, dowloand that pic(https://www.google.com/search?biw=1536&bih=674&tbm=isch&sa=1&ei=xH25XYeCJdSH1fAPsYy2uA4&q=metu&oq=metu&gs_l=img.3..0i67j0l4j0i67j0l4.5158.5442..5649...0.0..0.149.549.0j4......0....1..gws-wiz-img.......0i131.g6dCZCXtS0M&ved=0ahUKEwiH9MT6-cPlAhXUQxUIHTGGDecQ4dUDCAc&uact=5#imgrc=TBExjN4EpLIGKM:)
+# and paste its path on line 21 as ı did
+
+import PySimpleGUI as pg
+import os
+from tkinter import *
+from PIL import Image,ImageTk
+import tkinter.messagebox
+# layout
+def exit_programme() :
+    exit()
+def message() :
+    tkinter.messagebox.showinfo("Welcome","You are signed up successfully!")
+window = Tk()
+window.geometry("1000x1000")
+window.title("Welcome to file managing programme")
+
+ımg = Image.open("C:/Users/Default/Desktop/indir.png")
+pht = ImageTk.PhotoImage(ımg)
+lab = Label(image = pht)
+lab.pack()
+
+label_0 = Label(window,text = "Registiration Form",fg = "red",bg = 'white',relief = 'solid' ,font=("arial",20,"bold"))
+label_0.place(x=100,y=100)
+
+label_1 = Label(window,text = "First Name: ",font = ("arial",15,"bold"))
+label_1.place(x=0 ,y=250)
+
+fn = StringVar
+entry_1 = Entry(window,textvar = fn)
+entry_1.place(x=250,y=260)
+
+label_2 = Label(window,text = "Surname: ",font = ("arial",15,"bold"))
+label_2.place(x=0 ,y=350)
+
+ln = StringVar
+entry_2 = Entry(window,textvar = ln)
+entry_2.place(x=250,y=360)
+
+label_3 = Label(window,text = "Department: ",font = ("arial",15,"bold"))
+label_3.place(x=0 ,y=450)
+
+kn = StringVar
+entry_3 = Entry(window,textvar = kn)
+entry_3.place(x=250,y=460)
+
+label_4 = Label(window,text = "Select Your Age: ",font = ("arial",15,"bold"))
+label_4.place(x=0 ,y=550)
+
+var = StringVar()
+drop_list = ["-18","+18"]
+dropped_list = OptionMenu(window,var,*drop_list)
+var.set("Select Your Age:")
+dropped_list.config(width = 15)
+dropped_list.place(x=250,y=555)
+
+label_5 = Label(window,text = "Choose Your Country:",font = ("arial",15,"bold"))
+label_5.place(x=0,y=650)
+
+var_cb_1 = StringVar
+cb_1 = Checkbutton(window,text = "Turkey",variable = var_cb_1)
+cb_1.place(x=300,y=660)
+
+var_cb_2 = StringVar
+cb_2 = Checkbutton(window,text = "Other Country",variable = var_cb_2)
+cb_2.place(x=500,y=660)
+
+
+button1 = Button(window,text = "Sign Up",fg = "red",bg = 'gray',relief = "sunken" ,font=("arial",20,"bold"),width = 10,command = message).place(x=10,y=750)
+                                                                            #GROOVE,RIDGE,SUNKEN,RAISED
+
+button2 = Button(window,text = "Quit",fg = "red",bg = 'gray',relief = "sunken" ,font=("arial",20,"bold"),command = exit_programme,width = 10).place(x=500,y=750)
+                                                                            #GROOVE,RIDGE,SUNKEN,RAISED
+
+window.mainloop()
+
+
+
+
+
+
+
+
+
+
+
