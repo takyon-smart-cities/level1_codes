@@ -2,7 +2,7 @@
 import PySimpleGUI as sg
 
 #Before run it, dowloand that pic(https://www.google.com/search?biw=1536&bih=674&tbm=isch&sa=1&ei=xH25XYeCJdSH1fAPsYy2uA4&q=metu&oq=metu&gs_l=img.3..0i67j0l4j0i67j0l4.5158.5442..5649...0.0..0.149.549.0j4......0....1..gws-wiz-img.......0i131.g6dCZCXtS0M&ved=0ahUKEwiH9MT6-cPlAhXUQxUIHTGGDecQ4dUDCAc&uact=5#imgrc=TBExjN4EpLIGKM:)
-# and paste its path on line 21 as ı did
+# and paste its path ,which is on your pc,on line 21 as ı did
 
 import PySimpleGUI as pg
 import os
