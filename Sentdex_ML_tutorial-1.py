@@ -22,3 +22,5 @@ df["PCT_change"] = df ["Adj. Close"] - df["Adj. Open"] / df["Adj. Open"] * 100
 
 df = df[["Adj. Close", "PCT_change", "HL_PCT", "Adj. Volume"]]
 #print(df)
+
+
