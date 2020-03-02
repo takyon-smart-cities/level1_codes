@@ -1,0 +1,422 @@
+from tkinter import *
+from tkinter import ttk
+from tkinter import filedialog
+from tkinter import messagebox
+import os
+import shutil
+window=Tk()
+window.geometry('1100x300')
+window.title("File Manager")
+tabcontrol=ttk.Notebook(window)
+tab1=ttk.Frame(tabcontrol)
+tab2=ttk.Frame(tabcontrol)
+tab3=ttk.Frame(tabcontrol)
+tab4=ttk.Frame(tabcontrol)
+tab5=ttk.Frame(tabcontrol)
+tab6=ttk.Frame(tabcontrol)
+tab7=ttk.Frame(tabcontrol)
+tabcontrol.add(tab1,text="Create new file/dir")
+tabcontrol.add(tab2,text="Copy a file/dir")
+tabcontrol.add(tab3,text="Delete a file/dir")
+tabcontrol.add(tab4,text="Move a file/dir")
+tabcontrol.add(tab5,text="Rename a file/dir")
+tabcontrol.add(tab6,text="List content of dir")
+tabcontrol.add(tab7,text="Change current directory")
+
+def createfile():
+    messagebox.showinfo("Warning","Your file will be created in your current directory,\nif you want you can move it afterwards")
+    lad=Label(tab1,text="Enter new file name")
+    lad.grid(column=1,row=0)
+    txt=StringVar()
+    def openf():
+        filename=txt.get()
+        fil=open(filename,"w+")
+        labentr=Label(tab1,text="File created!")
+        labentr.grid(column=4,row=0)
+        butentr.destroy()
+        fentry.destroy()
+        lad.destroy()
+        def ok():
+            labentr.destroy()
+            butok.destroy()
+        butok=Button(tab1,text="OK!",command=ok)
+        butok.grid(column=5,row=0)
+    fentry=Entry(tab1,width=9,textvariable=txt)
+    fentry.grid(column=2,row=0)
+    butentr=Button(tab1,text="Enter",command=openf)
+    butentr.grid(column=3,row=0)
+
+def deletfile():
+    lad=Label(tab3,text="Choose file to delete")
+    lad.grid(column=1,row=0)
+    def askfile():
+        file=filedialog.askopenfilename()
+        os.remove(file)
+        def ok():
+            ladh.destroy()
+            butok.destroy()
+        lad.destroy()
+        butfile.destroy()
+        lad2.destroy()
+        fentry.destroy()
+        butentr.destroy()
+        ladh=Label(tab3,text="File deleted")
+        ladh.grid(column=1,row=0)
+        butok=Button(tab3,text="OK!",command=ok)
+        butok.grid(column=2,row=0)   
+    butfile=Button(tab3,text="Choose",command=askfile)
+    butfile.grid(column=1,row=1)
+    txt=StringVar()
+    def getf():
+        filename=txt.get()
+        try:
+            os.remove(filename)
+            def ok():
+                ladh.destroy()
+                butok.destroy()
+            lad.destroy()
+            butfile.destroy()
+            lad2.destroy()
+            fentry.destroy()
+            butentr.destroy()
+            ladh=Label(tab3,text="File deleted")
+            ladh.grid(column=1,row=0)
+            butok=Button(tab3,text="OK!",command=ok)
+            butok.grid(column=2,row=0)
+        except:
+            messagebox.showinfo("Error","File doesn't exist try again")
+    lad2=Label(tab3,text="or enter file name")
+    lad2.grid(column=2,row=0)
+    fentry=Entry(tab3,width=9,textvariable=txt)
+    fentry.grid(column=2,row=1)
+    butentr=Button(tab3,text="Enter",command=getf)
+    butentr.grid(column=3,row=1)
+
+def copyfile():
+    txts=StringVar()
+    txtd=StringVar()
+    lab1=Label(tab2,text="Enter file name to be copied")
+    lab1.grid(column=0,row=1)
+    lab2=Label(tab2,text="Enter destination file name")
+    lab2.grid(column=1,row=1)
+    sentry=Entry(tab2,width=7,textvariable=txts)
+    sentry.grid(column=0,row=2)
+    dentry=Entry(tab2,width=7,textvariable=txtd)
+    dentry.grid(column=1,row=2)
+    def copyf():
+        source=txts.get()
+        dest=txtd.get()
+        try:
+            shutil.copyfile(source,dest)
+            lab1.destroy()
+            lab2.destroy()
+            sentry.destroy()
+            dentry.destroy()
+            butentr.destroy()
+            labn=Label(tab2,text="File succesfully copied!")
+            labn.grid(column=0,row=1)
+            def ok():
+                labn.destroy()
+                butok.destroy()
+            butok=Button(tab2,text="OK!",command=ok)
+            butok.grid(column=1,row=1)
+        except:
+            messagebox.showinfo("Error","There is something wrong\nmake sure source file exists in the current directory!")
+    butentr=Button(tab2,text="Copy",command=copyf)
+    butentr.grid(column=2,row=2)
+
+def makedir():
+    txt=StringVar()
+    messagebox.showinfo("Warning","Your new folder will be created in the current directory")
+    labd=Label(tab1,text="Enter new folder name")
+    labd.grid(column=1,row=1)
+    dentry=Entry(tab1,width=9,textvariable=txt)
+    dentry.grid(column=2,row=1)
+    def omkdir():
+        dirname=txt.get()
+        os.mkdir(dirname)
+        labd.destroy()
+        dentry.destroy()
+        butent.destroy()
+        def ok():
+            lbn.destroy()
+            butok.destroy()
+        lbn=Label(tab1,text="Folder created!")
+        lbn.grid(column=1,row=1)
+        butok=Button(tab1,text="OK!",command=ok)
+        butok.grid(column=2,row=1)
+    butent=Button(tab1,text="Enter",command=omkdir)
+    butent.grid(column=3,row=1)
+
+def deldir():
+    txt=StringVar()
+    def ddir():
+        dire=filedialog.askdirectory()
+        try:
+            os.rmdir(dire)
+            lab1.destroy()
+            lab2.destroy()
+            butch.destroy()
+            dentry.destroy()
+            butent.destroy()
+            def ok():
+                labok.destroy()
+                butok.destroy()
+            labok=Label(tab3,text="Folder deleted!")
+            labok.grid(column=1,row=2)
+            butok=Button(tab3,text="OK!",command=ok)
+            butok.grid(column=2,row=2)
+        except:
+            messagebox.showinfo("Error","Directory is not empty")
+    def ddirr():
+        dird=txt.get()
+        try:
+            os.rmdir(dird)
+            lab1.destroy()
+            lab2.destroy()
+            butch.destroy()
+            dentry.destroy()
+            butent.destroy()
+            def ok():
+                labok.destroy()
+                butok.destroy()
+            labok=Label(tab3,text="Folder deleted!")
+            labok.grid(column=1,row=2)
+            butok=Button(tab3,text="OK!",command=ok)
+            butok.grid(column=2,row=2)
+        except:
+            messagebox.showinfo("Error","Directory doesn't exist or is not empty")   
+    lab1=Label(tab3,text="Choose folder to delete")
+    lab1.grid(column=0,row=3)
+    lab2=Label(tab3,text="or enter folder name")
+    lab2.grid(column=1,row=3)
+    butch=Button(tab3,text="Choose",command=ddir)
+    butch.grid(column=0,row=4)
+    dentry=Entry(tab3,width=7,textvariable=txt)
+    dentry.grid(column=1,row=4)
+    butent=Button(tab3,text="Enter",command=ddirr)
+    butent.grid(column=2,row=4)
+    
+def filername():
+    txt=StringVar()
+    txt1=StringVar()
+    lab1=Label(tab5,text="Enter file to rename")
+    lab1.grid(column=0,row=1)
+    fentr=Entry(tab5,width=7,textvariable=txt)
+    fentr.grid(column=0,row=2)
+    lab2=Label(tab5,text="Enter new name")
+    lab2.grid(column=1,row=1)
+    nentr=Entry(tab5,width=7,textvariable=txt1)
+    nentr.grid(column=1,row=2)
+    def getf():
+        old=txt.get()
+        new=txt1.get()
+        try:
+            os.rename(old,new)
+            lab1.destroy()
+            fentr.destroy()
+            lab2.destroy()
+            nentr.destroy()
+            butentr.destroy()
+            def ok():
+                labok.destroy()
+                butok.destroy()
+            labok=Label(tab5,text="File name updated!")
+            labok.grid(column=0,row=1)
+            butok=Button(tab5,text="OK!",command=ok)
+            butok.grid(column=1,row=1)
+        except:
+            messagebox.showinfo("Error","File doesn't exist, try again!")
+    butentr=Button(tab5,text="Enter",command=getf)
+    butentr.grid(column=2,row=2)
+
+def dirname():
+    txt=StringVar()
+    txt1=StringVar()
+    lab1=Label(tab5,text="Enter folder to rename")
+    lab1.grid(column=0,row=4)
+    fentr=Entry(tab5,width=7,textvariable=txt)
+    fentr.grid(column=0,row=5)
+    lab2=Label(tab5,text="Enter new name")
+    lab2.grid(column=1,row=4)
+    nentr=Entry(tab5,width=7,textvariable=txt1)
+    nentr.grid(column=1,row=5)
+    def getf():
+        old=txt.get()
+        new=txt1.get()
+        try:
+            os.rename(old,new)
+            lab1.destroy()
+            fentr.destroy()
+            lab2.destroy()
+            nentr.destroy()
+            butentr.destroy()
+            def ok():
+                labok.destroy()
+                butok.destroy()
+            labok=Label(tab5,text="Folder name updated!")
+            labok.grid(column=0,row=4)
+            butok=Button(tab5,text="OK!",command=ok)
+            butok.grid(column=1,row=4)
+        except:
+            messagebox.showinfo("Error","Folder doesn't exist, try again!")
+    butentr=Button(tab5,text="Enter",command=getf)
+    butentr.grid(column=2,row=5)
+
+def listdir():
+    txt=StringVar()
+    lab1=Label(tab6,text="Choose folder to view")
+    lab1.grid(column=0,row=1)
+    def askd():
+        dire=filedialog.askdirectory()
+        lis=os.listdir(dire)
+        lab1.destroy()
+        butch.destroy()
+        lab2.destroy()
+        dentr.destroy()
+        butentr.destroy()
+        lab3=Label(tab6,text=lis)
+        lab3.grid(column=0,row=1)
+        def ok():
+            butok.destroy()
+            lab3.destroy()
+        butok=Button(tab6,text="Return",command=ok)
+        butok.grid(column=1,row=1)
+    butch=Button(tab6,text="Choose",command=askd)
+    butch.grid(column=0,row=2)
+    lab2=Label(tab6,text="or enter folder name")
+    lab2.grid(column=1,row=1)
+    dentr=Entry(tab6,width=7,textvariable=txt)
+    dentr.grid(column=1,row=2)
+    def getd():
+        diro=txt.get()
+        try:
+            lis=os.listdir(diro)
+            lab1.destroy()
+            butch.destroy()
+            lab2.destroy()
+            dentr.destroy()
+            butentr.destroy()
+            lab3=Label(tab6,text=lis)
+            lab3.grid(column=0,row=1)
+            def ok():
+                butok.destroy()
+                lab3.destroy()
+            butok=Button(tab6,text="Return",command=ok)
+            butok.grid(column=1,row=1)
+        except:
+            messagebox.showinfo("Error","Folder doesn't exist in the current directory")
+            
+    butentr=Button(tab6,text="Enter",command=getd)
+    butentr.grid(column=2,row=1)
+
+def copydir():
+    txts=StringVar()
+    txtd=StringVar()
+    lab1=Label(tab2,text="Enter folder name to be copied")
+    lab1.grid(column=0,row=4)
+    lab2=Label(tab2,text="Enter new folder name to copy")
+    lab2.grid(column=1,row=4)
+    sentry=Entry(tab2,width=7,textvariable=txts)
+    sentry.grid(column=0,row=5)
+    dentry=Entry(tab2,width=7,textvariable=txtd)
+    dentry.grid(column=1,row=5)
+    def copyd():
+        sourc=txts.get()
+        dest=txtd.get()
+        try:
+            shutil.copytree(sourc,dest)
+            lab1.destroy()
+            lab2.destroy()
+            sentry.destroy()
+            dentry.destroy()
+            butentry.destroy()
+            def ok():
+                labok.destroy()
+                butok.destroy()
+            butok=Button(tab2,text="OK!",command=ok)
+            butok.grid(column=2,row=3)
+            labok=Label(tab2,text="Folder copied!")
+            labok.grid(column=1,row=3)
+        except Exception as e:
+            print(e)
+            messagebox.showinfo("Error","Make sure source folder exists in the current directory\nand destination folder doesn't exist")
+    butentry=Button(tab2,text="Enter",command=copyd)
+    butentry.grid(column=2,row=5)
+
+def changedir():
+    lab1=Label(tab7,text="Choose the directory you want to work on")
+    lab1.grid(column=0,row=1)
+    def chandir():
+        dird=filedialog.askdirectory()
+        os.chdir(dird)
+        lab1.destroy()
+        butch.destroy()
+        lab2=Label(tab7,text="Working directory is changed!")
+        lab2.grid(column=1,row=0)
+        def ok():
+            lab2.destroy()
+            butok.destroy()
+        butok=Button(tab7,text="OK!",command=ok)
+        butok.grid(column=2,row=0)
+        
+    butch=Button(tab7,text="Choose",command=chandir)
+    butch.grid(column=1,row=1)
+    
+def movefile():
+    textf=StringVar()
+    textd=StringVar()
+    lab1=Label(tab4,text="Enter the file name you want to copy")
+    lab1.grid(column=0,row=1)
+    lab2=Label(tab4,text="Enter the folder name you want to move the file to")
+    lab2.grid(column=1,row=1)
+    fentry=Entry(tab4,width=9,textvariable=textf)
+    fentry.grid(column=0,row=2)
+    dentry=Entry(tab4,width=9,textvariable=textd)
+    dentry.grid(column=1,row=2)
+    def movef():
+        file=textf.get()
+        dest=textd.get()
+        try:
+            shutil.move(file,dest)
+            lab1.destroy()
+            lab2.destroy()
+            fentry.destroy()
+            dentry.destroy()
+            butcopy.destroy()
+            labok=Label(tab4,text="File is moved!")
+            labok.grid(column=0,row=1)
+            def ok():
+                labok.destroy()
+                butok.destroy()
+            butok=Button(tab4,text="OK!",command=ok)
+            butok.grid(column=1,row=1)
+        except Exception as e:
+            messagebox.showinfo("Error","Something is wrong\nMake sure file exists!")     
+    butcopy=Button(tab4,text="Move",command=movef)
+    butcopy.grid(column=2,row=2)
+   
+    
+    
+    
+    
+    
+               
+    
+    
+    
+
+btncr=Button(tab1,text="Create new text file",command=createfile).grid(column=0,row=0)
+btndelet=Button(tab3,text="Delete a file",command=deletfile).grid(column=0,row=0)
+btncopyfile=Button(tab2,text="Copy a file",command=copyfile).grid(column=0,row=0)
+btnmkdir=Button(tab1,text="Make new directory",command=makedir).grid(column=0,row=1)
+btndldir=Button(tab3,text="Delete directory",command=deldir).grid(column=0,row=2)
+btnrename=Button(tab5,text="Rename file",command=filername).grid(column=0,row=0)
+btndirname=Button(tab5,text="Rename a directory",command=dirname).grid(column=0,row=3)
+btnlist=Button(tab6,text="Show content of a directory",command=listdir).grid(column=0,row=0)
+btncopydir=Button(tab2,text="Copy a directory",command=copydir).grid(column=0,row=3)
+btnchng=Button(tab7,text="Change current directory",command=changedir).grid(column=0,row=0)
+btnmov=Button(tab4,text="Move file to directory",command=movefile).grid(column=0,row=0)
+tabcontrol.pack()
+window.mainloop()
+
