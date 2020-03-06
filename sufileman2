@@ -1,0 +1,262 @@
+from tkinter import *
+import os
+import shutil
+from tkinter import filedialog
+from tkinter import messagebox
+window=Tk()
+window.geometry('1100x300')
+window.title("File Manager")
+
+    
+class fileorfold:
+    def __init__(self,name,col,ro):
+        self.name=name
+        self.path=os.path.abspath(name)
+        if os.path.isdir(self.path):
+            self.back="blue"
+        else:
+            self.back="red"
+        def show():
+            def rename():
+                txt=StringVar()
+                but1.destroy()
+                but2.destroy()
+                but3.destroy()
+                but4.destroy()
+                but5.destroy()
+                labr=Label(window,text="Enter new name")
+                labr.grid(column=col,row=ro+1)
+                entr=Entry(window,width=7,textvariable=txt)
+                entr.grid(column=col,row=ro+2)
+                def rname():
+                    new=txt.get()
+                    labr.destroy()
+                    entr.destroy()
+                    butent.destroy()
+                    os.rename(self.path,new)
+                    labok=Label(window,text="Name changed!")
+                    labok.grid(column=col,row=ro+1)
+                    def ok():
+                        labok.destroy()
+                        butok.destroy()
+                        clear()
+                        showdir(os.getcwd())
+                    butok=Button(window,text="OK!",command=ok)
+                    butok.grid(column=col+1,row=ro+1)
+                    
+                butent=Button(window,text="Enter",command=rname)
+                butent.grid(column=col+1,row=ro+2)
+            def delete():
+                but1.destroy()
+                but2.destroy()
+                but3.destroy()
+                but4.destroy()
+                but5.destroy()
+                try:
+                    if os.path.isdir(self.path):
+                        os.rmdir(self.path)
+                    else:
+                        os.remove(self.path)
+                    labok=Label(window,text="Deleted!")
+                    labok.grid(column=col,row=ro+1)
+                    def ok():
+                        labok.destroy()
+                        butok.destroy()
+                        clear()
+                        showdir(os.getcwd())
+                    butok=Button(window,text="OK!",command=ok)
+                    butok.grid(column=col+1,row=ro+1)
+                except:
+                    messagebox.showinfo("Error","Something went wrong\nif you're trying to delete a folder\nmake sure it is empty")
+            def copy():
+                but1.destroy()
+                but2.destroy()
+                but3.destroy()
+                but4.destroy()
+                but5.destroy()
+                txtd=StringVar()
+                labd=Label(window,text="Destination name?")
+                labd.grid(column=col,row=ro+1)
+                entr=Entry(window,width=7,textvariable=txtd)
+                entr.grid(column=col,row=ro+2)
+                def cop():
+                    dest=txtd.get()
+                    if os.path.isdir(self.path):
+                        try:
+                            shutil.copytree(self.path,dest)
+                            labd.destroy()
+                            entr.destroy()
+                            butentr.destroy()
+                            labok=Label(window,text="Copied!")
+                            labok.grid(column=col,row=ro+1)
+                            def ok():
+                                labok.destroy()
+                                butok.destroy()
+                                clear()
+                                showdir(os.getcwd())
+                            butok=Button(window,text="OK!",command=ok)
+                            butok.grid(column=col+1,row=ro+1)
+                        except:
+                            messagebox.showinfo("Error","Something went wrong\nmake sure dest folder doesn't exist!")
+                    else:
+                        try:
+                            shutil.copyfile(self.path,dest)
+                            labd.destroy()
+                            entr.destroy()
+                            butentr.destroy()
+                            labok=Label(window,text="Copied!")
+                            labok.grid(column=col,row=ro+1)
+                            def ok():
+                                labok.destroy()
+                                butok.destroy()
+                                clear()
+                                showdir(os.getcwd())
+                            butok=Button(window,text="OK!",command=ok)
+                            butok.grid(column=col+1,row=ro+1)
+                        except:
+                            messagebox.showinfo("Error","Something went wrong")
+                butentr=Button(window,text="Enter",command=cop)
+                butentr.grid(column=col+1,row=ro+2)
+            def gback():
+                but1.destroy()
+                but2.destroy()
+                but3.destroy()
+                but4.destroy()
+                but5.destroy()
+            def goin():
+                but1.destroy()
+                but2.destroy()
+                but3.destroy()
+                but4.destroy()
+                but5.destroy()
+                try:
+                    os.chdir(self.path)
+                    clear()
+                    showdir(os.getcwd())
+                except Exception as e:
+                    messagebox.showinfo("Error","You can't go inside a file")
+                
+                
+
+                
+                        
+                    
+            but1=Button(window,text="Rename",command=rename)
+            but1.grid(column=col,row=ro+1)
+
+            but2=Button(window,text="Delete",command=delete)
+            but2.grid(column=col,row=ro+2)
+
+            but3=Button(window,text="Copy",command=copy)
+            but3.grid(column=col,row=ro+3)
+
+            but4=Button(window,text="Go in",command=goin)
+            but4.grid(column=col,row=ro+4)
+
+            but5=Button(window,text="Go back",command=gback)
+            but5.grid(column=col,row=ro+5)
+        self.but=Button(window,text=self.name,command=show,height=4,width=12,bg=self.back)
+        self.but.grid(column=col,row=ro)
+    
+
+def mkfile():
+    lad=Label(window,text="Enter new file name")
+    lad.grid(column=1,row=0)
+    txt=StringVar()
+    def openf():
+        filename=txt.get()
+        pathf=os.getcwd()+"/"+filename
+        fil=open(pathf,"w+")
+        labentr=Label(window,text="File created!")
+        labentr.grid(column=2,row=0)
+        butentr.destroy()
+        fentry.destroy()
+        lad.destroy()
+        def ok():
+            labentr.destroy()
+            butok.destroy()
+            clear()
+            showdir(os.getcwd())
+        butok=Button(window,text="OK!",command=ok)
+        butok.grid(column=3,row=0)
+    fentry=Entry(window,width=7,textvariable=txt)
+    fentry.grid(column=2,row=0)
+    butentr=Button(window,text="Enter",command=openf)
+    butentr.grid(column=3,row=0)
+def makedir():
+    txt=StringVar()
+    labd=Label(window,text="Enter new folder name")
+    labd.grid(column=1,row=1)
+    dentry=Entry(window,width=6,textvariable=txt)
+    dentry.grid(column=2,row=1)
+    def omkdir():
+        dirname=txt.get()
+        pathd=os.getcwd()+"/"+dirname
+        os.mkdir(pathd)
+        labd.destroy()
+        dentry.destroy()
+        butent.destroy()
+        def ok():
+            lbn.destroy()
+            butok.destroy()
+            clear()
+            showdir(os.getcwd())
+        lbn=Label(window,text="Folder created!")
+        lbn.grid(column=2,row=1)
+        butok=Button(window,text="OK!",command=ok)
+        butok.grid(column=3,row=1)
+    butent=Button(window,text="Enter",command=omkdir)
+    butent.grid(column=3,row=1)
+
+def chdir():
+    labc=Label(window,text="Choose directory")
+    labc.grid(column=1,row=2)
+    
+    def cdir():
+        dird=filedialog.askdirectory()
+        os.chdir(dird)
+        clear()
+        labc.destroy()
+        butc.destroy()
+        labok=Label(window,text="Changed directory!")
+        labok.grid(column=1,row=2)
+        def ok():
+            labok.destroy()
+            butok.destroy()
+            showdir(os.getcwd())
+        butok=Button(window,text="OK!",command=ok)
+        butok.grid(column=2,row=2)
+
+    butc=Button(window,text="Choose",command=cdir)
+    butc.grid(column=2,row=2)
+    
+    
+    
+butcrf=Button(window,text="Make new file",command=mkfile)
+butcrf.grid(column=0,row=0)
+butcrdir=Button(window,text="Make new directory",command=makedir)
+butcrdir.grid(column=0,row=1)
+butchdir=Button(window,text="Change current dir",command=chdir)
+butchdir.grid(column=0,row=2)
+lsobj=[]
+def showdir(path):
+    global lsobj
+    lis=os.listdir(path)
+    c=0
+    r=3
+    for file in lis:
+        a=fileorfold(file,c,r)
+        lsobj.append(a)
+        c+=4  
+        if c>24:
+            c=0
+            r+=6
+def clear():
+    global lsobj
+    for obj in lsobj:
+        obj.but.destroy()
+    lsobj=[]
+        
+showdir(os.getcwd())   
+        
+window.mainloop()
