@@ -1,0 +1,209 @@
+import random
+
+class dealerz:
+    def __init__(self):
+        self.hand =[] 
+
+    def dealer_hit(self):
+        append_card = random.choice(deck)
+        if append_card not in self.hand:
+            
+            self.hand.append(append_card)
+        else:
+            self.dealer_hit()
+
+    def __repr__(self):
+        return "{}".format(self.name)
+
+
+class playerz:
+    def __init__(self,bet=100, cash_player= 1000):
+        self.hand=[]
+        self.bet = bet
+        self.cash = cash_player
+
+    def player_hit(self):
+        
+        append_card = random.choice(deck)
+        if append_card not in self.hand:
+            self.hand.append(append_card)
+        else:
+            self.player_hit()
+
+    def player_stand(self):   
+        dealer.dealer_hit()
+
+    def __repr__(self):
+        return "{}".format(self.name)
+
+
+
+class cards:
+
+    def __init__(self,name,value):
+
+        self.name=name
+        self.value=value
+
+    def __repr__(self):
+        return "{}".format(self.name)
+
+King = cards("King",10)
+Queen = cards("Queen",10)
+Jack = cards("Jack",10)
+Ten = cards("Ten",10)
+Nine = cards("nine",9)
+Eight = cards("eight",8)
+Seven = cards("seven",7)
+Six = cards("six",6)
+Five = cards("five",5)
+Four = cards("four",4)
+Three = cards("three",3)
+Two = cards("two",2)
+Ace = cards("Ace",1)
+
+deck =[King,Queen,Jack,Ten,Nine,Eight,Seven,Six,Five,Four,Three,Two,Ace]
+
+def check_hand(player,dealer):  
+    value_player = 0
+    for a in player.hand :
+        if a != Ace:  
+            value_player += a.value
+            
+    if Ace in player.hand:
+        if value_player+11 <22:
+            value_player +=11
+        else:
+            value_player +=1
+
+    value_dealer = 0
+    for j in dealer.hand :
+        if j != Ace:
+            
+            value_dealer += j.value
+            
+    if Ace in dealer.hand:
+        if value_dealer +11 <22:
+            value_dealer +=11
+        else:
+            value_dealer +=1
+
+    return value_player, value_dealer
+
+def check_winner(value_dealer,value_player,cash_player,bet):
+    
+    if (value_player == 21):
+        print("player won")
+        cash_player += bet
+
+    elif (value_dealer == 21):
+        print("dealer won")
+        cash_player -= bet
+
+    elif (value_player < 21 and value_dealer < 21):
+        if value_player < value_dealer:
+            print("dealer won")
+            cash_player -= bet
+            
+        elif (value_player > value_dealer) :
+            print("player won")
+            cash_player += bet
+        else:
+            print("tie !")
+
+    else:
+        if (value_player < 21 and value_dealer > 21):
+            print("player won")
+            cash_player += bet
+        elif (value_player > 21 and value_dealer < 21):
+            print("dealer won")
+            cash_player -= bet
+        else:
+            print("dealer won")    #error here 
+            cash_player -= bet
+    
+    return cash_player
+
+def hit_or_stand(player,dealer):
+    answ = input("hit or stand ?")
+
+    if answ == "hit":
+        if (int(dealer.hand[0].value)+ int(dealer.hand[1].value))<16:
+            dealer.dealer_hit()
+        player.player_hit()        
+        print("your hand : {}".format(str(player.hand)))
+
+    elif answ == "stand":
+        empty_value=0 
+        for x in range(len(dealer.hand)):
+            empty_value += dealer.hand[x].value        
+        while(empty_value <15):
+            empty_value =0
+            for x in range(len(dealer.hand)):
+                empty_value += dealer.hand[x].value
+            if empty_value < 15:  
+                dealer.dealer_hit()
+        print("your hand : {}".format(str(player.hand)))
+
+        return "break"
+
+    else:
+        print("wrong input")
+        return 0 
+       
+
+    
+        
+def main(cash_player):
+    print("Sen sen ol, asla iki zara yüzbin verme. Hayırlı kumarlar...")
+    
+    bet_initial = 0
+    bet_increment= int(input("enter the bet :"))
+    if bet_increment > cash_player:
+        print("paran mı var bilader hayırdır")
+        main(cash_player)
+
+    if bet_increment <0:
+        print("tekmen ancak sen beti negatif girerdin zaten çık şu oyundan aq")
+        main(cash_player)
+        
+    bet = bet_initial + bet_increment
+
+    player = playerz(bet,cash_player)
+    dealer = dealerz()
+
+    for q in range(2):
+        player.player_hit()
+        dealer.dealer_hit()
+
+    print("your hand : {}".format(str(player.hand)))
+    print("dealer hand : {}".format(str(dealer.hand[0])))
+    playershand, dealershand = check_hand(player,dealer)
+    while((dealershand and playershand)<21):
+        break_loop = hit_or_stand(player,dealer)
+        if break_loop == "break":
+            break
+        playershand, dealershand = check_hand(player,dealer)
+  
+    print("dealer's hand : {}".format(str(dealer.hand)))
+    hands_player, hands_dealer = check_hand(player,dealer)
+    cash_player= check_winner(hands_dealer,hands_player,cash_player,bet)
+    print(cash_player)
+    
+    dewamke = input("oyuna devam etmek istiyor musun ? : y/n")
+    if dewamke == "y":
+        main(cash_player)
+        
+    elif dewamke == "n":
+        return "game is over"
+    
+    else:
+        return "Yanlıs input girdin tebrikler"
+    
+
+if __name__ == "__main__":
+    value_player = 0
+    value_dealer = 0     
+    main(1000)
+    
+
